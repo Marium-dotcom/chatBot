@@ -25,3 +25,27 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* Add this to your CSS */
+::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #84141A; /* Set the color of the thumb */
+  border-radius: 3px; /* Optional: Set border-radius for rounded corners */
+}
+
+
+.chat{
+  background-image: url("./assets/BG.png");
+  background-size: contain;
+}
+
+.bg{
+  background-image: url("./assets/main.png");
+  background-size: contain;
+  background-repeat: repeat;
+
+}
+
