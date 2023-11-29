@@ -1,11 +1,13 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import data from './api/data';
 import Image from 'next/image';
 import bakr2 from "./assets/avatar.png";
 import smallbakr from "./assets/chat.png";
 import send from "./assets/send.svg";
+
 import Link from 'next/link';
+import { Howl } from 'howler';
 
 function Home() {
   const [options, setOptions] = useState([
@@ -17,10 +19,22 @@ function Home() {
   const [isFirstOpen, setFirstOpen] = useState(true);
 
   const [conversation, setConversation] = useState([]);
-  const [response, setResponse] = useState('');
   const [userInput, setUserInput] = useState('');
   const [isChatVisible, setChatVisible] = useState(false);
-  const chatContainerRef = useRef(null);
+  useEffect(() => {
+
+    const sound = new Howl({
+       src: ['/notify.wav']
+    });
+
+    sound.play();
+
+    return () => {
+      sound.stop();
+    };
+
+  }, []); // Empty array => run once on mount
+
 
   const handleOptionClick = async (option) => {
     try {
@@ -31,7 +45,6 @@ function Home() {
       const botMessage = { type: 'bot', text: botResponse };
       setConversation((prev) => [...prev, botMessage]);
 
-      setResponse(botResponse);
     } catch (error) {
       console.error('Error accessing data:', error);
     }
@@ -68,11 +81,16 @@ function Home() {
   return (
     <main className='bg-[#FFFBF0] bg h-screen flex flex-col   justify-between items-end '>
    <Link href={'/ChatBot'}>   <button className=' bg-yellow-300 text-black p-10'>CLICK HERE FOR THE WHOLE CHAT PAGE</button> </Link>
+<section   className="overflow-y-auto relative chat flex justify-between flex-col     m-8 bg-[#FFFBF9]   max-w-md h-[80%] rounded-md shadow-md "     style={{
+            opacity: isChatVisible ? 1 : 0,
+            transform: isChatVisible ? 'translateY(0)' : 'translateY(-20px)',
+            transition: 'opacity 0.3s ease, transform 0.3s ease'  
+          }}>
       {isChatVisible && (
         <>
 
-        <div className=" relative chat flex justify-between flex-col     m-8 bg-[#FFFBF9]   max-w-md h-[80%] rounded-md shadow-md overflow-y-auto" ref={chatContainerRef}>
-                         <div className='bg-[#84141A] p-4 flex justify-between'> <p>Chatbot</p>               <p onClick={handleCloseClick} className="cursor-pointer">X</p>
+        
+                         <div className='bg-[#84141A] p-4 flex sticky top-0 justify-between'> <p>Chatbot</p>               <p onClick={handleCloseClick} className="cursor-pointer">X</p>
  </div>
 
           <div className='flex p-5'>
@@ -94,7 +112,7 @@ function Home() {
           </div>
 
           {conversation.length > 0 && (
-            <div className="flex flex-col p-5 flex-1 overflow-y-auto">
+            <div className="flex flex-col p-5 flex-1 ">
               {conversation.map((message, index) => (
                 <div key={index} className={`flex items-start mb-2 ${message.type === 'user' ? 'justify-end ' : 'justify-start'}`}>
                   {message.type === 'bot' && (
@@ -113,7 +131,7 @@ function Home() {
               type="text"
               value={userInput}
               onChange={(e) => handleUserInput(e.target.value)}
-              className=" text-black border-gray-400 p-2 flex-1 rounded-l-md"
+              className=" text-black focus:outline-none border-gray-400 p-2 flex-1 rounded-l-md"
               placeholder="Type your message..."
             />
             <button
@@ -122,14 +140,16 @@ function Home() {
               <Image width={30} src={send}></Image>
             </button>
           </div>
-        </div></>
+        </>
       )}
-
+</section>
       {!isChatVisible && (
-        <div className='flex items-start px-1'>
+        <div 
+        
+        className='flex items-start px-1'>
           <p onClick={handleAvatarClick} className='cursor-pointer animate-bounce max-w-sm bg-red-900  text-white p-2 rounded-l-[20px] rounded-tr-[10px] '> 
           Hello! 🌟 Bakr here, ready with my virtual tablet! How may I assist you today?</p>
-          <Image width={200} src={bakr2} style={{ opacity: isChatVisible ? 0 : 1, transition: 'opacity 0.5s ease' }}></Image>
+          <Image width={200} src={bakr2}></Image>
         </div>
       )}
     </main>

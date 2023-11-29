@@ -49,7 +49,7 @@ function Home() {
 
   return (
     <main className='bg-[#FFFBF0] bg flex justify-around p-5 flex-col md:flex-row relative md:p-0 h-screen items-center'>
-      <div className="container vintage-border  relative flex flex-col justify-between chat
+      <div className="container   relative flex flex-col justify-between chat
     m-8 bg-[#FFFBF9] max-w-xl h-[80%] rounded-md shadow-md overflow-y-auto">
                                <div className='bg-[#84141A] p-4 flex sticky top-0 justify-between'> <p>🌟 Chat with Bakr</p>             </div>
 
@@ -93,7 +93,7 @@ function Home() {
     type="text"
     value={userInput}
     onChange={(e) => handleUserInput(e.target.value)}
-    className=" text-black  p-2 flex-1 "
+    className=" text-black  p-2 flex-1 focus:outline-none "
     placeholder="Type your message..."
   />
 
