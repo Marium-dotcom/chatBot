@@ -20,10 +20,11 @@ function Home() {
   const [userInput, setUserInput] = useState('');
   const [isChatVisible, setChatVisible] = useState(false);
   const [clickedFeedback, setClickedFeedback] = useState(false); 
-const [date, setDate] = useState();
-const [name, setName] = useState('');
-const [time, setTime] = useState();
-const [people, setPeople] = useState();
+  const [date, setDate] = useState();
+  const [name, setName] = useState('');
+  const [time, setTime] = useState();
+  const [people, setPeople] = useState();
+  
   useEffect(() => {
     const sound = new Howl({
        src: ['/notify.wav']
@@ -140,12 +141,7 @@ const [people, setPeople] = useState();
     }
   };
   
-  const handleConfirmReservation = () => {
-    // Perform any action you want when the user confirms the reservation
-    // For example, you can make an API call, display a confirmation message, etc.
-    console.log('Reservation confirmed!');
-  };
-  
+
   
   
 
@@ -294,14 +290,34 @@ const [people, setPeople] = useState();
     <li>Number of People: {people}</li>
   </ul>
 
-              <input
-                type="radio"
-                value="Confirm"
-                name='Confirm'
-                onChange={(e) => handleUserInput(e.target.value)}
-                className="text-red-900 focus:outline-none border-red-800 p-2 flex-1 rounded-l-md mt-2 w-[200px] "
-                placeholder=""
-              /></>
+
+<div className='flex items-center '>
+  <div className="flex items-center mr-4">
+  <input 
+    id="confirm"
+    type="radio" 
+    value="Confirm" 
+    name="Confirm"
+    onChange={(e) => handleUserInput(e.target.value)}
+    className="hidden"
+  />
+
+  <label 
+    htmlFor="confirm"
+    className="bg-red-900 text-white  my-3  px-4 py-1 rounded cursor-pointer"
+  >
+    Confirm
+  </label>
+</div>
+
+
+<button className=' text-center rounded px-1  bg-white border-2 border-red-900  text-red-900 w-[80px]' onClick={handleCloseClick}>
+  No
+</button>
+  </div>        
+
+
+              </>
             )}
 
 
