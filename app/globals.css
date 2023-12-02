@@ -49,3 +49,41 @@ body {
 
 }
 
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease;
+  height: 80%;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease;
+  height: 0;
+}
+
+
+/* Styles */
+
+.confirm-button {
+  appearance: none;
+  background: rgb(255, 255, 255);
+  color: rgb(111, 0, 0);
+  padding: 6px 8px; 
+  border-radius: 1px;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.confirm-button:checked {
+  /* Selected button styles */
+  background: rgb(178, 0, 0)
+}
+
+label {
+  display: inline-flex; 
+  align-items: center;
+  gap: 8px;
+}
