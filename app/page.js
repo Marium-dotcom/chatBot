@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import bakr2 from "./assets/avatar.png";
 import smallbakr from "./assets/chat.png";
@@ -24,6 +24,8 @@ function Home() {
   const [name, setName] = useState('');
   const [time, setTime] = useState();
   const [people, setPeople] = useState();
+  const messagesRef = useRef(null);
+
   
   useEffect(() => {
     const sound = new Howl({
@@ -38,6 +40,10 @@ function Home() {
 
 
   
+  useEffect(() => {
+    // Scroll to the bottom after new messages are added
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [conversation]); 
 
 
   
@@ -89,24 +95,24 @@ function Home() {
       else if(lastBotMessage && lastBotMessage.text.includes('What date would you like to make a reservation for?')){
         const botMessage3 = {
           type: 'bot',
-          text: `Great  Choice ${name}! Thanks! What time would you prefer for your reservation?`,
+          text: `Thanks! ${name}! What time would you prefer for your reservation?`,
           withTimeInput: true, 
         };
         setDate(userInput)
         setConversation((prev) => [...prev, botMessage3]);
 
       }
-      else if(lastBotMessage && lastBotMessage.text.includes('Thanks! What time would you prefer for your reservation?')){
+      else if(lastBotMessage && lastBotMessage.text.includes('would you prefer for your reservation?')){
         const botMessage4 = {
           type: 'bot',
-          text: `Perfect! How many people will be in your party?`,
+          text: `Perfect!👌 How many people will be in your party?`,
           withPeopleInput: true, 
         };     
         setTime(userInput)
         setConversation((prev) => [...prev, botMessage4]);
 
       }
-      else if(lastBotMessage && lastBotMessage.text.includes('Perfect! How many people will be in your party?')){
+      else if(lastBotMessage && lastBotMessage.text.includes('Perfect!👌 How many people will be in your party?')){
         const botMessage5 = {
           type: 'bot',
           text: `Excellent! Let me confirm your reservation details:`,
@@ -196,9 +202,10 @@ function Home() {
 
 :
 
-   <>
+   <>    
+
    <section
-        className="overflow-y-auto relative chat flex justify-between flex-col m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md "
+     ref={messagesRef}   className="overflow-y-auto font-league relative   flex justify-between flex-col m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md "
         style={{
           opacity: isChatVisible ? 1 : 0,
           transform: isChatVisible ? 'translateY(0)' : null,
@@ -237,13 +244,13 @@ function Home() {
 
 
           {conversation.length > 0 && (
-            <div className="flex flex-col p-5 flex-1 ">
+            <div className="flex flex-col p-3 flex-1 ">
               {conversation.map((message, index) => (
                 <div key={index} className={`flex items-start mb-2 ${message.type === 'user' ? 'justify-end ' : 'justify-start'}`}>
                   {message.type === 'bot' && (
           <>
-          <Image key={`avatar-${index}`} width={60} src={smallbakr} alt="Chatbot Avatar" className=" w-10 h-12   rounded-full mr-2" />
-          <div key={`message-${index}`} className={`py-2 px-3 rounded-lg ${message.type === 'user' ? 'bg-[#F0F0F0] text-black self-end' : 'text-[#84141A] self-start'}`}>
+          <Image key={`avatar-${index}`} width={60} src={smallbakr} alt="Chatbot Avatar" className=" w-10 h-12   rounded-full " />
+          <div key={`message-${index}`} className={`py-2 px-1 rounded-lg ${message.type === 'user' ? 'bg-[#F0F0F0] text-black self-end' : 'text-[#84141A] self-start'}`}>
           </div>
         </>
 
@@ -256,7 +263,7 @@ function Home() {
                 type="date"
                 value={userInput}
                 onChange={(e) => handleUserInput(e.target.value)}
-                className=" text-red-900 focus:outline-none border-red-800 p-2 flex-1 rounded-l-md mt-2 w-[200px] "
+                className=" text-red-900 focus:outline-none outline bg-white  outline-red-900 border-red-800 p-1 flex-1 rounded mt-2 w-[200px] "
                 placeholder="Enter date..."
               />
             )}
@@ -265,7 +272,7 @@ function Home() {
                 type="time"
                 value={userInput}
                 onChange={(e) => handleUserInput(e.target.value)}
-                className="text-red-900 focus:outline-none border-red-800 p-2 flex-1 rounded-l-md mt-2 w-[200px] "
+                className=" text-red-900 focus:outline-none outline bg-white  outline-red-900 border-red-800 p-1 flex-1 rounded mt-2 w-[200px]  "
                 placeholder="Enter date..."
               />
             )}
@@ -275,7 +282,7 @@ function Home() {
                 type="number"
                 value={userInput}
                 onChange={(e) => handleUserInput(e.target.value)}
-                className="text-red-900 focus:outline-none border-red-800 p-2 flex-1 rounded-l-md mt-2 w-[200px] "
+                className=" text-red-900 focus:outline-none outline bg-white  outline-red-900 border-red-800 p-1 flex-1 rounded mt-2 w-[200px] "
                 placeholder="Number of people"
               />
             )}
@@ -334,7 +341,7 @@ function Home() {
                   type="text"
                   value={userInput}
                   onChange={(e) => handleUserInput(e.target.value)}
-                  className="text-black focus:outline-none border-gray-400 p-2 flex-1 rounded-l-md"
+                  className="text-black focus:outline-none border-gray-400 p-1 flex-1 rounded-l-md"
                   placeholder="Type your message..."
                 />
                 <button
@@ -351,7 +358,7 @@ function Home() {
 
       {!isChatVisible && (
         <div  className='flex items-start px-1'>
-          <p onClick={handleAvatarClick} className='cursor-pointer animate-bounce max-w-sm bg-red-900  text-white p-2 rounded-l-[20px] rounded-tr-[10px] '> 
+          <p onClick={handleAvatarClick} className='cursor-pointer animate-bounce max-w-sm bg-red-900  text-white p-1 rounded-l-[20px] rounded-tr-[10px] '> 
           Hello! 🌟 Bakr here, ready with my virtual tablet! How may I assist you today?</p>
           <Image alt='avatar' width={200} src={bakr2}></Image>
         </div>
