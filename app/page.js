@@ -25,7 +25,7 @@ function Home() {
   const [time, setTime] = useState();
   const [people, setPeople] = useState();
   const messagesRef = useRef(null);
-
+const [confirm, setConfirm] = useState(false);
   
   useEffect(() => {
     const sound = new Howl({
@@ -122,7 +122,8 @@ function Home() {
         setConversation((prev) => [...prev, botMessage5]);
 
       }
-      else if(lastBotMessage && lastBotMessage.text.includes('Let me confirm your reservation details')){
+      else if(lastBotMessage && lastBotMessage.text.includes('Let me confirm your reservation details') && confirm === true){
+
         const botMessage6 = {
           type: 'bot',
           text: `Reservation confirmed! Your table is booked. Thank you for choosing our restaurant. If you have any other questions, feel free to ask.
@@ -305,8 +306,11 @@ function Home() {
     type="radio" 
     value="Confirm" 
     name="Confirm"
-    onChange={(e) => handleUserInput(e.target.value)}
-    className="hidden"
+    onChange={(e) => {
+      handleUserInput(e.target.value);
+      setConfirm(true);
+    }}
+        className="hidden"
   />
 
   <label 
@@ -358,7 +362,7 @@ function Home() {
 
       {!isChatVisible && (
         <div  className='flex items-start px-1'>
-          <p onClick={handleAvatarClick} className='cursor-pointer animate-bounce max-w-sm bg-red-900  text-white p-1 rounded-l-[20px] rounded-tr-[10px] '> 
+          <p onClick={handleAvatarClick} className='cursor-pointer animate-bounce max-w-sm bg-red-900  text-white p-3 rounded-br-[2px] rounded-l-[20px] rounded-tr-[20px] '> 
           Hello! 🌟 Bakr here, ready with my virtual tablet! How may I assist you today?</p>
           <Image alt='avatar' width={200} src={bakr2}></Image>
         </div>
