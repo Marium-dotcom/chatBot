@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Tomatoes", "Mozzarella", "Basil"],
+    "itemName": "Margherita Pizza",
+    "priceInUSD": 10.99,
+    "category": "Italian"
+  },
+  {
+    "id": 2,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Chickpeas", "Yogurt", "Pita Bread"],
+    "itemName": "Fatteh Platter",
+    "priceInUSD": 8.99,
+    "category": "Fatteh"
+  },
+  {
+    "id": 3,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Butternut Squash", "Coconut Milk", "Spices"],
+    "itemName": "Chilled Butternut Squash Soup",
+    "priceInUSD": 6.99,
+    "category": "Soup"
+  },
+  {
+    "id": 4,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Cucumber", "Tomato", "Feta"],
+    "itemName": "Greek Cucumber Salad",
+    "priceInUSD": 7.99,
+    "category": "Cold Starter"
+  },
+  {
+    "id": 5,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Mixed Greens", "Cherry Tomatoes", "Balsamic Vinaigrette"],
+    "itemName": "Mixed Green Salad",
+    "priceInUSD": 8.49,
+    "category": "Salads"
+  },
+  {
+    "id": 6,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Stuffed Mushrooms", "Garlic", "Herbs"],
+    "itemName": "Stuffed Mushrooms",
+    "priceInUSD": 9.99,
+    "category": "Hot Starters"
+  },
+  {
+    "id": 7,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Garlic Butter Asparagus", "Parmesan", "Lemon"],
+    "itemName": "Garlic Butter Asparagus",
+    "priceInUSD": 5.99,
+    "category": "Side Dishes"
+  },
+  {
+    "id": 8,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Grilled Chicken", "Roasted Vegetables", "Mashed Potatoes"],
+    "itemName": "Grilled Chicken Main Course",
+    "priceInUSD": 14.99,
+    "category": "Main Course"
+  },
+  {
+    "id": 9,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Chicken Tenders", "French Fries", "Ketchup"],
+    "itemName": "Kids Meal",
+    "priceInUSD": 6.99,
+    "category": "Kids Meal"
+  },
+  {
+    "id": 10,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Cola", "Ice", "Lemon"],
+    "itemName": "Cola",
+    "priceInUSD": 2.49,
+    "category": "Soft Drink"
+  },
+  {
+    "id": 11,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Vodka", "Cranberry Juice", "Lime"],
+    "itemName": "Cosmopolitan Cocktail",
+    "priceInUSD": 8.99,
+    "category": "Cocktail"
+  },
+  {
+    "id": 12,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Orange", "Carrot", "Ginger"],
+    "itemName": "Fresh Orange Carrot Juice",
+    "priceInUSD": 4.99,
+    "category": "Fresh Juice"
+  },
+  {
+    "id": 13,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Steak", "Grilled Vegetables", "Chimichurri Sauce"],
+    "itemName": "Grilled Steak",
+    "priceInUSD": 17.99,
+    "category": "Grill Corner"
+  },
+  {
+    "id": 14,
+    "imageURL": "https://i.ibb.co/jVVsky8/pngwing-com.png",
+    "ingredients": ["Chocolate Cake", "Vanilla Ice Cream", "Chocolate Sauce"],
+    "itemName": "Chocolate Lava Cake",
+    "priceInUSD": 9.99,
+    "category": "Dessert"
+  }
+]

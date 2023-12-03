@@ -7,11 +7,10 @@ import send from "./assets/send.svg";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Howl } from 'howler';
 import FeedbackForm from './Feedback/page';
+import MenuMain from './Menu/page';
 
 function Home() {
   const [options, setOptions] = useState([
-    'Menu Exploration',
-    'Specials Announcement',
     'Reserve',
   ]);
 
@@ -20,6 +19,8 @@ function Home() {
   const [userInput, setUserInput] = useState('');
   const [isChatVisible, setChatVisible] = useState(false);
   const [clickedFeedback, setClickedFeedback] = useState(false);
+  const [clickedMenu, setClickedMenu] = useState(false);
+
   const [formData, setFormData] = useState({
     date: '',
     name: '',
@@ -133,6 +134,13 @@ function Home() {
     setClickedFeedback(false);
     setChatVisible(true);
   };
+ 
+const handleMenuClick = () => {
+  setChatVisible(false);
+
+  setClickedMenu(true)
+}
+
 
   const handleAvatarClick = () => {
     setChatVisible(!isChatVisible);
@@ -164,10 +172,26 @@ return (
           </motion.div>
         </AnimatePresence>
         :
+ 
+        clickedMenu? 
+        <AnimatePresence>
+        <motion.div
+          className='mb-10'
+          key="feedback"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <MenuMain />
+        </motion.div>
+        
+      </AnimatePresence>
+:
 
         <>
           <section
-            ref={messagesRef} className="overflow-y-auto chat bg-cover  relative flex chat justify-between flex-col m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md "
+            ref={messagesRef} className="overflow-y-auto scrollbar-hide chat bg-cover  relative flex chat justify-between flex-col m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md "
             style={{
               opacity: isChatVisible ? 1 : 0,
               transform: isChatVisible ? 'translateY(0)' : null,
@@ -198,6 +222,8 @@ return (
                       </div>
                     ))}
                     <button onClick={handleFeedbackClick} className="bg-[#84141A] hover:bg-[#570c10] text-white py-2 px-4 rounded mr-2 mb-2">Feedback</button>
+                    <button onClick={handleMenuClick} className="bg-[#84141A] block hover:bg-[#570c10] text-white py-2 px-4 rounded mr-2 mb-2">Menu</button>
+
                   </div>
                 </div>
 

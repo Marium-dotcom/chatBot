@@ -61,7 +61,7 @@ export default function FeedbackForm({ handleFeedbackClose, handleCloseClick }) 
 
   return (
     <div className='flex  flex-col items-center justify-center lg:flex-row  m-3 lg:items-end '>
-      <section className='  flex justify-start text-start  flex-col lg:m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md '>
+      <section className='  flex justify-start text-start  flex-col lg:m-8  max-w-md rounded-md shadow-md '>
         <div className='bg-[#84141A] text-white px-6 py-3 flex sticky top-0 justify-between'>
           <p>Help us serve you better!</p>
           <p onClick={handleCloseClick}
