@@ -2,135 +2,164 @@
 import React, { useState } from 'react';
 import feedbackav from '../assets/feedback.png';
 import Image from 'next/image';
-import { FaStar } from "react-icons/fa";
+import { FaStar } from 'react-icons/fa';
 
-export default function FeedbackForm({ handleFeedbackClose }) {
-  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-  const [comment, setComment] = useState('');
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-const [hover, setHover] = useState();
-const [rating, setRate] = useState();
-const [activeSuggestion, setActiveSuggestion] = useState(null);
+export default function FeedbackForm({ handleFeedbackClose, handleCloseClick }) {
+  const [formData, setFormData] = useState({
+    selectedSuggestion: null,
+    comment: '',
+    name: '',
+    phoneNumber: '',
+    rating: null,
+    dish: '',
+  });
+
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(null);
 
 
-  const handleSuggestionClick = (suggestion) => {
-    setSelectedSuggestion(suggestion);
+  const handleInputChange = (field, value) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
 
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
-  };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
 
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+  const ratingChanged = (newRating) => {
+    handleInputChange('rating', newRating);
   };
 
   const handleSubmit = () => {
-    console.log('reccomendation:', selectedSuggestion);
-    console.log('Comment submitted:', comment);
-    console.log('Name submitted:', name);
-    console.log('Phone Number submitted:', phoneNumber);
-    console.log('RATE:', rating);
+    console.log(formData);
+    console.log('Recommendation:', formData.selectedSuggestion);
+    console.log('Comment submitted:', formData.comment);
+    console.log('Name submitted:', formData.name);
+    console.log('Phone Number submitted:', formData.phoneNumber);
+    console.log('RATE:', formData.rating);
+    console.log('Dish:', formData.dish);
 
     // Reset form state if needed
-    setSelectedSuggestion(null);
-    setComment('');
-    setName('');
-    setPhoneNumber('');
-    handleFeedbackClose();
+    setFormData({
+      selectedSuggestion: null,
+      comment: '',
+      name: '',
+      phoneNumber: '',
+      hover: null,
+      rating: null,
+      dish: '',
+    });
 
+    handleFeedbackClose();
   };
 
-
-const feedbackSuggestions = [
-  {  text: 'No 😐' },
-  {  text: 'Absolutly! 😋' },
-];
-
-
-const ratingChanged = (newRating) => {
-  console.log(newRating)
-}
-
-
+  const feedbackSuggestions = [
+    { text: 'No 😐' },
+    { text: 'Absolutely! 😋' },
+  ];
+  const handleSuggestionClick = (suggestion, index) => {
+    handleInputChange('selectedSuggestion', suggestion);
+    setSelectedSuggestionIndex(index);
+  };
 
   return (
-    <div className='flex  items-end '>
-      <Image alt="avatar" width={350} src={feedbackav}  />
-      <section className="   flex text-black justify-between flex-col m-8 bg-[#FFFBF9]  rounded-md shadow-md p-6">
-        <p className=' mb-4 '>Dish Ratings</p>
-        <div className="flex justify-around mb-4">
-{[...Array(5)].map((star, index) => {const currentRate = index+1;
-return(<label key={index}>
+    <div className='flex  flex-col items-center justify-center lg:flex-row  m-3 lg:items-end '>
+      <section className='  flex justify-start text-start  flex-col lg:m-8 bg-[#FFFBF9] max-w-md rounded-md shadow-md '>
+        <div className='bg-[#84141A] text-white px-6 py-3 flex sticky top-0 justify-between'>
+          <p>Help us serve you better!</p>
+          <p onClick={handleCloseClick}
+                    className="cursor-pointer">X</p>
 
-        <input className=' hidden' type="radio" name='rating' value={currentRate} onClick={()=> setRate(currentRate)}/>
-      <FaStar
-      className='star'
-      size={50}
-      color={currentRate <= (hover  || rating)? "#84141A": "#e4e5e9"}
-      onMouseEnter={()=>setHover(currentRate)}
-      onMouseLeave={()=>setHover(null)}
-     ></FaStar>
-      </label>)
-      })}
         </div>
-        <p className=' mb-2 '>Would you reccomend us?</p>
-        <div className="flex justify-around mb-4">
-          {feedbackSuggestions.map((suggestion) => (
-            <button
-              key={suggestion.text}
-              className={`p-2 bg-white border-red-900 border rounded-sm }`}
-              onClick={() => handleSuggestionClick(suggestion)}
-            >
-            {suggestion.text}  
-            </button>
-          ))}
+        <div className='p-5  md:mt-3'>
+          <p className='font-medium'>Star Power</p>
+          <p className='font-light'>Share your star-studded thoughts! How many stars would you award Karazah?</p>
+          <div className='my-3'>
+            {[...Array(5)].map((star, index) => {
+              const currentRate = index + 1;
+              return (
+                <label key={index}>
+                  <input
+                    className='hidden'
+                    type='radio'
+                    name='rating'
+                    value={currentRate}
+                    onClick={() => ratingChanged(currentRate)}
+                  />
+                  <FaStar
+                    className='star'
+                    size={30}
+                    color={currentRate <= (formData.hover || formData.rating) ? '#84141A' : '#e4e5e9'}
+                    onMouseEnter={() => handleInputChange('hover', currentRate)}
+                    onMouseLeave={() => handleInputChange('hover', null)}
+                  ></FaStar>
+                </label>
+              );
+            })}
+          </div>
+          <p className='my-3'>Would you recommend us to friends and family?</p>
+          <div className='flex'>
+        {feedbackSuggestions.map((suggestion, index) => (
+          <button
+            key={suggestion.text}
+            className={`p-1 mr-4 ${
+              selectedSuggestionIndex === index ? 'bg-red-900 text-white' : 'bg-white border-red-900 border'
+            } rounded-md`}
+            onClick={() => handleSuggestionClick(suggestion, index)}
+          >
+            {suggestion.text}
+          </button>
+        ))}
+      </div>
+          <label className='block mt-4 mb-3 ' htmlFor='dish'>
+            Your Most Loved Dish! 🎉
+          </label>
+          <input
+            id='dish'
+            type='text'
+            className='p-1 w-[95%]  border rounded-md focus:outline-none focus:border-[#84141A] mb-4'
+            placeholder='Loved Dish'
+            value={formData.dish}
+            onChange={(e) => handleInputChange('dish', e.target.value)}
+          />
+          <label className='block my-2 ' htmlFor='comment'>
+            Comments
+          </label>
+          <textarea
+            id='comment'
+            className='w-[95%] p-3 border rounded-md focus:outline-none focus:border-[#84141A] mb-4'
+            placeholder='Dining or delivery, your experience matters. Let us know what you think'
+            value={formData.comment}
+            onChange={(e) => handleInputChange('comment', e.target.value)}
+          />
+          <label className='block mb-1 ' htmlFor='name'>
+            Your Name
+          </label>
+          <input
+            id='name'
+            type='text'
+            className='p-1 w-[95%]  border rounded-md focus:outline-none focus:border-[#84141A] mb-4'
+            placeholder='Your Name'
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+          />
+          <label className='block my-2' htmlFor='phoneNumber'>
+            Phone Number
+          </label>
+          <input
+            id='phoneNumber'
+            type='tel'
+            className='p-1 w-[95%]  border rounded-md focus:outline-none focus:border-[#84141A] mb-4'
+            placeholder='Phone Number'
+            value={formData.phoneNumber}
+            onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+          />
+          <button
+            className='bg-[#84141A] w-[95%] block hover:bg-[#570c10] text-white m-1 py-2 px-4 rounded'
+            onClick={handleSubmit}
+          >
+            Submit Feedback
+          </button>
         </div>
-        <label className="block mb-2  " htmlFor="comment">
-          Comments
-        </label>
-        <textarea
-          id="comment"
-          className="p-2 border rounded-md focus:outline-none focus:border-[#84141A] mb-4"
-          placeholder="Leave a comment..."
-          value={comment}
-          onChange={handleCommentChange}
-        />
-        <label className="block mb-2  " htmlFor="name">
-          Your Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          className="p-2 border rounded-md focus:outline-none focus:border-[#84141A] mb-4"
-          placeholder="Your Name"
-          value={name}
-          onChange={handleNameChange}
-        />
-        <label className="block mb-2  " htmlFor="phoneNumber">
-          Phone Number
-        </label>
-        <input
-          id="phoneNumber"
-          type="tel"
-          className="p-2 border rounded-md focus:outline-none focus:border-[#84141A] mb-4"
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={handlePhoneNumberChange}
-        />
-        <button
-          className="bg-[#84141A] hover:bg-[#570c10] text-white py-2 px-4 rounded"
-          onClick={handleSubmit}
-        >
-          Submit Feedback
-        </button>
-     
       </section>
+      <Image alt='avatar' className='lg:block hidden' width={250} src={feedbackav} />
     </div>
   );
 }

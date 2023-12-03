@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,10 +42,10 @@ body {
 }
 
 
-/* .chat{
+.chat{
   background-image: url("./assets/BG.png");
   background-size: contain;
-} */
+}
 
 /* .bg{
   background-image: url("./assets/main.png");
@@ -57,23 +56,8 @@ body {
 
 
 
-/* Styles */
 
-/* .confirm-button {
-  appearance: none;
-  background: rgb(255, 255, 255);
-  color: rgb(111, 0, 0);
-  padding: 6px 8px; 
-  border-radius: 1px;
-  border: none;
-  font-size: 12px;
-  cursor: pointer;
-}
 
-.confirm-button:checked {
-   Selected button styles
-  background: rgb(178, 0, 0)
-}  */
 
 label {
   display: inline-flex; 
