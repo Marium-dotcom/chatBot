@@ -65,7 +65,7 @@ export default function FeedbackForm({ handleFeedbackClose, handleCloseClick }) 
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.5 }}
       transition={{ duration: 0.5 }}
-      className='flex flex-col items-center justify-center lg:flex-row  m-3 lg:items-end '
+      className='flex flex-col items-center justify-center md:flex-row  m-3 lg:items-end '
     >
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -193,7 +193,7 @@ export default function FeedbackForm({ handleFeedbackClose, handleCloseClick }) 
         exit={{ opacity: 0, x: -20 }}
         transition={{ duration: 0.5 }}
       >
-        <Image alt='avatar' className='lg:block hidden' width={250} src={feedbackav} />
+        <Image alt='avatar' className='md:block hidden' width={250} src={feedbackav} />
       </motion.div>
     </motion.div>
   );

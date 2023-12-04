@@ -176,7 +176,7 @@ const handleMenuClose = () =>{
 
 return (
   <>
-    <main className='bg-[#FFFBF0] bg h-screen  bg-contain text-black flex justify-end items-end lg:justify-end lg:items-end '>
+    <main className='bg-[#FFFBF0] bg h-screen  bg-contain text-black flex justify-center md:justify-end items-end lg:justify-end lg:items-end '>
 
       {clickedFeedback ?
         <AnimatePresence>

@@ -34,8 +34,9 @@ const Menu = ({handleMenuClose}) => {
   };
 
   return (
+
     <div className='flex justify-end items-end'>
-      <div className="w-[370px] lg:max-w-lg rounded shadow-lg bg-white flex flex-col justify-between h-[600px] mx-auto">
+      <div className="w-[370px]  lg:max-w-xl rounded-md shadow-lg bg-white flex flex-col justify-between h-[700px] mx-auto">
         <div className='bg-[#84141A] text-white px-6 py-3 flex sticky top-0 justify-between'>
           <p>Deliciously Crafted food 😋</p>
           <p onClick={handleMenuClose}
@@ -94,7 +95,7 @@ const Menu = ({handleMenuClose}) => {
           </AnimatePresence>
         </div>
       </div>
-      <Image className='hidden lg:block' src={chef} width={350} alt='chef'></Image>
+      <Image className='hidden md:block' src={chef} width={350} alt='chef'></Image>
     </div>
   );
 };
