@@ -31,22 +31,21 @@ body {
 
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 6px; }
 
 ::-webkit-scrollbar-thumb {
   background-color: #84141A; 
   border-radius: 1px; 
-} */
-
-.scrollbar-hide::-webkit-scrollbar {
+} 
+/* .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
 .scrollbar-hide {
   -ms-overflow-style: none; 
   scrollbar-width: none;  
-}
+} */
 
 .chat{
   background-image: url("./assets/BG.png");

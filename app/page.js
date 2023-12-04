@@ -26,8 +26,10 @@ function Home() {
     name: '',
     time: '',
     people: '',
+    phone: '',
     confirm: false,
   });
+
   console.log(formData);
   const messagesRef = useRef(null);
 
@@ -100,20 +102,32 @@ function Home() {
         };
         setFormData((prev) => ({ ...prev, time: userInput.trim() }));
         setConversation((prev) => [...prev, botMessage4]);
-      } else if (lastBotMessage && lastBotMessage.text.includes('Perfect!👌 How many people will be in your party?')) {
+      }
+            
+      else if (lastBotMessage && lastBotMessage.text.includes('Perfect!👌 How many people will be in your party?')) {
         const botMessage5 = {
+          type: 'bot',
+          text: `Finally, Enter your phone number:`,
+          withPhoneInput: true,
+        };
+        setFormData((prev) => ({ ...prev, people: userInput.trim() }));
+        setConversation((prev) => [...prev, botMessage5]);
+      }
+      else if (lastBotMessage && lastBotMessage.text.includes("Finally, Enter your phone number")) {
+        const botMessage6 = {
           type: 'bot',
           text: `Excellent! Let me confirm your reservation details:`,
           withConfirmBtn: true,
         };
-        setFormData((prev) => ({ ...prev, people: userInput.trim() }));
-        setConversation((prev) => [...prev, botMessage5]);
+        setFormData((prev) => ({ ...prev, phone: userInput.trim() }));
+        setConversation((prev) => [...prev, botMessage6]);
       } else if (lastBotMessage && lastBotMessage.text.includes('Let me confirm your reservation details') && formData.confirm === true) {
-        const botMessage6 = {
+        const botMessage7 = {
           type: 'bot',
           text: `Reservation confirmed! Your table is booked. Thank you for choosing our restaurant. If you have any other questions, feel free to ask. Have a good day, ${formData.name}! 🤲❤️`,
+
         };
-        setConversation((prev) => [...prev, botMessage6]);
+        setConversation((prev) => [...prev, botMessage7]);
       } else {
         // Handle other responses
         const botResponse = 'Bot response for other cases';
@@ -141,6 +155,12 @@ const handleMenuClick = () => {
   setClickedMenu(true)
 }
 
+const handleMenuClose = () =>{
+  setClickedMenu(false);
+  setChatVisible(true);
+
+}
+
 
   const handleAvatarClick = () => {
     setChatVisible(!isChatVisible);
@@ -156,7 +176,7 @@ const handleMenuClick = () => {
 
 return (
   <>
-    <main className='bg-[#FFFBF0] bg h-screen  bg-contain text-black flex justify-center items-end lg:justify-end lg:items-end '>
+    <main className='bg-[#FFFBF0] bg h-screen  bg-contain text-black flex justify-end items-end lg:justify-end lg:items-end '>
 
       {clickedFeedback ?
         <AnimatePresence>
@@ -183,7 +203,7 @@ return (
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <MenuMain />
+          <MenuMain handleMenuClose={handleMenuClose} />
         </motion.div>
         
       </AnimatePresence>
@@ -266,12 +286,23 @@ return (
                             <input
                              required
                               type="number"
-                              value={userInput}
                               onChange={(e) => handleUserInput(e.target.value)}
                               className=" text-red-900 focus:outline-none outline bg-white  outline-red-900 border-red-800 p-1 flex-1 rounded mt-2 w-[200px] "
                               placeholder="Number of people"
                             />
                           )}
+                          {
+                            message.withPhoneInput && (
+                              <input
+                              required
+                               type = "tel"
+                               onChange={(e) => handleUserInput(e.target.value)}
+                               className=" text-red-900 focus:outline-none outline bg-white  outline-red-900 border-red-800 p-1 flex-1 rounded mt-2 w-[200px] "
+                               placeholder="phone"
+                             />
+ 
+                            )
+                          }
 
                           {message.withConfirmBtn && (
                             <>
@@ -280,6 +311,7 @@ return (
                                 <li>Date: {formData.date}</li>
                                 <li>Time: {formData.time}</li>
                                 <li>Number of People: {formData.people}</li>
+                                <li>phone: {formData.phone}</li>
                               </ul>
 
                               <div className='flex items-center '>
